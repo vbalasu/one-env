@@ -15,6 +15,22 @@ def put():
     s3.put_object(Bucket='one-env', Key='vbalasu/'+payload['key'], Body=json.dumps(payload['data']))
     return True
 
+def get_similar(p_fullname):
+    import pandas as pd
+    df = pd.read_csv('chalicelib/distinct_names.csv')
+    df['fullname'] = df['firstname'] + ' ' + df['lastname']
+    from fuzzywuzzy import fuzz
+    df['ratio'] = df['fullname'].apply(lambda fullname: fuzz.ratio(fullname, p_fullname))
+    similar_names = df.sort_values(by='ratio', ascending=False).iloc[:3]
+    return similar_names[['fullname', 'ratio']]
+
+def get_random_name():
+    import pandas as pd
+    df = pd.read_csv('chalicelib/distinct_names.csv')
+    df['fullname'] = df['firstname'] + ' ' + df['lastname']
+    return df.sample()['fullname'].iloc[0]
+
+
 # The view function above will return {"hello": "world"}
 # whenever you make an HTTP GET request to '/'.
 #
