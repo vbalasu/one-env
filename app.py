@@ -1,11 +1,12 @@
-from chalice import Chalice
+from chalice import Chalice, Response
 
 app = Chalice(app_name='one-env')
 
 
 @app.route('/')
 def index():
-    return {'hello': 'world'}
+    with open('chalicelib/index.html') as f:
+        return Response(body=f.read(), status_code=200, headers={'Content-Type': 'text/html'})
 
 @app.route('/put', methods=['PUT'])
 def put():
@@ -15,6 +16,7 @@ def put():
     s3.put_object(Bucket='one-env', Key='vbalasu/'+payload['key'], Body=json.dumps(payload['data']))
     return True
 
+@app.route('/get_similar/{p_fullname}')
 def get_similar(p_fullname):
     import pandas as pd
     df = pd.read_csv('chalicelib/distinct_names.csv')
@@ -22,8 +24,9 @@ def get_similar(p_fullname):
     from fuzzywuzzy import fuzz
     df['ratio'] = df['fullname'].apply(lambda fullname: fuzz.ratio(fullname, p_fullname))
     similar_names = df.sort_values(by='ratio', ascending=False).iloc[:3]
-    return similar_names[['fullname', 'ratio']]
+    return similar_names[['fullname', 'ratio']].to_dict(orient='records')
 
+@app.route('/get_random_name')
 def get_random_name():
     import pandas as pd
     df = pd.read_csv('chalicelib/distinct_names.csv')
@@ -33,6 +36,10 @@ def get_random_name():
     name_with_initial = name.replace(' ', ' ' + chr(random.randint(0, 25)+65) + ' ')  # Random middle initial
     return name_with_initial
 
+@app.route('/get_random_and_similar')
+def get_random_and_similar():
+    name = get_random_name()
+    return {'random': name, 'similar': get_similar(name)}
 
 # The view function above will return {"hello": "world"}
 # whenever you make an HTTP GET request to '/'.
@@ -52,4 +59,3 @@ def get_random_name():
 #     return {'user': user_as_json}
 #
 # See the README documentation for more examples.
-#
