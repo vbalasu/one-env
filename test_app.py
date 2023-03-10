@@ -6,6 +6,8 @@ def test_index():
     assert response.status_code == 200
     assert b'Entity Resolution' in response.content
     assert b'bootstrap' in response.content
+    assert b'axios' in response.content
+    assert b'handlebars' in response.content
 
 def test_put():
     payload = {
@@ -28,3 +30,4 @@ def test_get_random_name():
     result = app.get_random_name()
     assert type(result) == str
     assert ' ' in result
+

@@ -24,7 +24,7 @@ def get_similar(p_fullname):
     from fuzzywuzzy import fuzz
     df['ratio'] = df['fullname'].apply(lambda fullname: fuzz.ratio(fullname, p_fullname))
     similar_names = df.sort_values(by='ratio', ascending=False).iloc[:3]
-    return similar_names[['fullname', 'ratio']].to_dict(orient='records')
+    return similar_names.sort_values(by='fullname')[['fullname', 'ratio']].to_dict(orient='records')
 
 @app.route('/get_random_name')
 def get_random_name():
