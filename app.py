@@ -28,7 +28,10 @@ def get_random_name():
     import pandas as pd
     df = pd.read_csv('chalicelib/distinct_names.csv')
     df['fullname'] = df['firstname'] + ' ' + df['lastname']
-    return df.sample()['fullname'].iloc[0]
+    name = df.sample()['fullname'].iloc[0]
+    import random
+    name_with_initial = name.replace(' ', ' ' + chr(random.randint(0, 25)+65) + ' ')  # Random middle initial
+    return name_with_initial
 
 
 # The view function above will return {"hello": "world"}
