@@ -22,3 +22,5 @@ B. Setup Databricks
 5. Open the Realtime dashboard notebook [06-Realtime-Dashboard](https://e2-demo-field-eng.cloud.databricks.com/?o=1444828305810485#notebook/3631133442764114/command/3631133442764215)
 6. Start the [DLT Pipeline](https://e2-demo-field-eng.cloud.databricks.com/?o=1444828305810485#joblist/pipelines/9f406290-3739-4fdd-b6c5-d9f0e9502efb/updates/985b1305-0e14-4c0a-a23a-3eae65d05a86) in continuous mode
 7. Open Data Explorer to [hive_metastore.demos_dlt_cdc_vijay_balasubramaniam](https://e2-demo-field-eng.cloud.databricks.com/sql/explore/data/hive_metastore/demos_dlt_cdc_vijay_balasubramaniam?o=1444828305810485)
+8. Open the [Data Quality Dashboard](https://e2-demo-field-eng.cloud.databricks.com/sql/dashboards/6f73dd1b-17b1-49d0-9a11-b3772a2c3357-dlt---retail-data-quality-stats?o=1444828305810485#)
+
