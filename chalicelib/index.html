@@ -45,7 +45,7 @@
         async function showChoices() {
             var random_and_similar = await axios.get('/get_random_and_similar');
             console.log('random_and_similar', random_and_similar);
-            var template = Handlebars.compile(`User entered: <div><h1>{{random}}</h1></div><br>
+            var template = Handlebars.compile(`User #${window.counter+1} entered: <div><h1>{{random}}</h1></div><br>
             {{#each similar}}
             <div class="row m-4">
               <button type="button" class="btn btn-primary btn-lg btn-block" onclick="onSelected({{@index}})">
@@ -55,10 +55,39 @@
             {{/each}}`);
             window.random_and_similar = random_and_similar;
             document.getElementById('output').innerHTML = template(random_and_similar.data);
+            if(window.counter >= 10) showEndPage();
+            else window.counter++;
+        }
 
+        function showEndPage() {
+            var html = `<br><h3>Thank You</h3>
+            <p>
+                Thank you for your help in disambiguating our customer names!
+            </p>
+            <p>
+                The customer names you selected will appear on the realtime dashboard on the big screen, 
+                along with their historical sales. 
+
+                This dashboard is being powered by the Lakehouse architecture and a Delta Live Tables streaming pipeline. 
+            </p>
+            <p>
+                This pipeline takes care of change data capture (CDC) and slowly changing dimensions (SCD Type 2).
+                It also checks for data quality issues and automatically handles them.
+            </p>
+            <p>
+                We welcome your questions and comments!
+            </p>
+            <br>
+            <div class="d-grid gap-2 col-4 mx-auto">
+                <a href="/" class="btn btn-primary btn-lg" role="button">Start Over</a>
+            </div>
+            <br>
+                `;
+            document.getElementById('output').innerHTML = html;
         }
 
         async function main() {
+            window.counter = 0;
             await showChoices();
         }
         main();
