@@ -24,4 +24,8 @@ B. Setup Databricks
 7. Open Data Explorer to [hive_metastore.demos_dlt_cdc_vijay_balasubramaniam](https://e2-demo-field-eng.cloud.databricks.com/sql/explore/data/hive_metastore/demos_dlt_cdc_vijay_balasubramaniam?o=1444828305810485)
 8. Open the [Data Quality Dashboard](https://e2-demo-field-eng.cloud.databricks.com/sql/dashboards/6f73dd1b-17b1-49d0-9a11-b3772a2c3357-dlt---retail-data-quality-stats?o=1444828305810485#)
 
-<img src="media/demo_overview.svg">
+<img src="media/demo_overview.svg" />
+<br>
+<img src="media/qrcode.png" />
+
+[https://deloitte-university.databricks-partners.com/](https://deloitte-university.databricks-partners.com/)
