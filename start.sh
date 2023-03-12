@@ -1,1 +1,1 @@
-nohup ./run.sh &
+nohup ./run.sh >/tmp/nohup.out &
